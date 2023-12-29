@@ -1,13 +1,4 @@
-import React from 'react';
-
-export default ({ name }) => (
-  <>
-    <h1>Hello {name}!</h1>
-    <p> Start editing and see your changes reflected here immediately!</p>
-  </>
-);
 import React, { useState } from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css'; 
 
 const TodoList = () => {
   const [tasks, setTasks] = useState([]);
@@ -47,51 +38,38 @@ const TodoList = () => {
   };
 
   return (
-    <div className="container mt-5">
-      <h1>Todo List</h1>
-      <div className="mb-3">
-        <input
+    <div>
+      <h1>To Do List</h1>
+      <div>
+        <input 
           type="text"
-          className="form-control"
-          placeholder="Enter a new task"
           value={newTask}
           onChange={(e) => setNewTask(e.target.value)}
         />
-        <button className="btn btn-success mt-2" onClick={addTask}>
-          Add Task
-        </button>
+        <button className="addtask-button" onClick={addTask}>Add Task</button>
       </div>
-      <ul className="list-group">
+      <ul>
         {tasks.map((task) => (
-          <li key={task.id} className="list-group-item d-flex justify-content-between align-items-center">
+          <li key={task.id}>
             {editingTaskId === task.id ? (
               <>
                 <input
                   type="text"
-                  className="form-control"
                   value={editedTask}
                   onChange={(e) => setEditedTask(e.target.value)}
                 />
-                <div>
-                  <button className="btn btn-primary mx-1" onClick={saveEditedTask}>
-                    Save
-                  </button>
-                  <button className="btn btn-secondary" onClick={cancelEditing}>
-                    Cancel
-                  </button>
-                </div>
+                <button className="saveedit-button" onClick={saveEditedTask}>Save</button>
+                <button className="canceledit-button" onClick={cancelEditing}>Cancel</button>
               </>
             ) : (
               <>
                 {task.text}
-                <div>
-                  <button className="btn btn-warning mx-1" onClick={() => startEditing(task.id, task.text)}>
-                    Edit
-                  </button>
-                  <button className="btn btn-danger" onClick={() => deleteTask(task.id)}>
-                    Delete
-                  </button>
-                </div>
+                
+                <button className="edit-button" onClick={() => startEditing(task.id, task.text)}>
+                  Edit
+                </button>
+
+                <button className="delete-button" onClick={() => deleteTask(task.id)}>Delete</button>
               </>
             )}
           </li>
